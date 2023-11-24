@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<style>
+  html,
+  body {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    font-family: "Euclid Circular A", "Poppins";
+    background: black;
+    color: black;
+    margin-bottom:60px;
+  }
+  .message{
+    z-index:9999;
+    height:50px;
+    width:50px;
+    position:fixed;
+    left:86%;
+    top:85%;
+    cursor:pointer;
+  }
+
+  .logo{
+    margin-bottom: 30px;
+    height: 400px;
+    width: 700px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  .logo1{
+    height: 50px;
+    width: 180px;
+  }
+  button1 {
+    border: 0;
+    padding: 0;
+    background: white;
+    cursor: pointer;
+  }
+  .login {
+    display: inline-block;
+    width: 180px;
+    height: 50px;
+    border-radius: 10px;
+    border: 1px solid white;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s ease-in;
+    z-index: 1;
+    margin-bottom: 100px;
+  }
+
+  .login::before,
+  .login::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 100%;
+    transform: skew(15deg);
+    transition: all 0.5s;
+    overflow: hidden;
+    z-index: -1;
+  }
+
+  .login::before {
+    left: -10px;
+    background: white;
+  }
+
+  .login::after {
+    right: -10px;
+    background: white;
+  }
+
+  .login:hover::before,
+  .login:hover::after {
+    width: 58%;
+  }
+
+  .login:hover span {
+    color: white;
+    transition: 0.3s;
+  }
+
+  .login span {
+    color: white;
+    font-size: 18px;
+    transition: all 0.3s ease-in;
+  }
+  .icon-close{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    z-index: 1;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    --c: black;
+
+    color: black;
+    transition: 0.5s;
+  }
+  .icon-close:hover {
+    width: 40px;
+    height:40px;
+    --_p: 100%;
+  }
+
+
+  h3{
+    font-size: 2em;
+    color: black;
+    text-align: center;
+  }
+  .error {
+    background: #fff;
+    color: #A94442;
+    padding: 10px;
+    width: 95%;
+    border-radius: 5px;
+    margin: 20px auto;
+    text-align: center;
+    display: none;
+    transition: 0.5s;
+  }
+
+  .success {
+    background: #fff;
+    color: #40754C;
+    padding: 10px;
+    width: 95%;
+    border-radius: 5px;
+    margin: 20px auto;
+    text-align: center;
+    display: none;
+    transition: .5s;
+  }
+  .inputbox{
+    position: relative;
+    margin: 30px 0;
+    width: 310px;
+    border-bottom: 2px solid black;
+  }
+
+  .inputbox label{
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    color: black;
+    font-size: 1em;
+    pointer-events: none;
+    transition: .5s;
+  }
+  input:focus ~ label,
+  input:valid ~ label{
+    top: -5px;
+  }
+  .inputbox input {
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    padding:0 35px 0 5px;
+    color: black;
+  }
+  .inputbox ion-icon{
+    position: absolute;
+    right: 8px;
+    color: black;
+    font-size: 1.2em;
+    top: 20px;
+  }
+  .register{
+    font-size: .9em;
+    color: black;
+    text-align: center;
+    margin: 25px 0 10px;
+  }
+  .register p a{
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+  }
+  .register p a:hover{
+    text-decoration: underline;
+  }
+
+  button {
+    width: 100%;
+    height: 40px;
+    border-radius: 40px;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    --c: black;
+
+    color: black;
+    background:
+            linear-gradient(90deg,white 50%,var(--c) 0) calc(100% - var(--_p,0%))/200% 100%,
+            linear-gradient(var(--c) 0 0) 0% 100%/var(--_p,0%) 100% no-repeat;
+    -webkit-background-clip: text,padding-box;
+    background-clip: text,padding-box;
+    transition: 0.5s;
+    margin-left: 0px;
+  }
+
+
+  button:hover {
+    background-color: black;
+    color: white;
+    --_p: 100%;
+  }
+
+  .burger,
+  .menu {
+    position: fixed;
+  }
+
+  .burger {
+    z-index: 3;
+    top: 0;
+    left: 0;
+    display: grid;
+    place-items: center;
+    width: 88px;
+    height: 88px;
+    background-image: url("https://raw.githubusercontent.com/kriszmas/Javabeadando/d16f393c1f5b43b2e76c15127e1c3bf60fcde7ca/menu.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  body.open .burger {
+    background-image: url("https://raw.githubusercontent.com/kriszmas/Javabeadando/d16f393c1f5b43b2e76c15127e1c3bf60fcde7ca/close.svg");
+  }
+
+  .menu {
+    z-index: 2;
+    top: 0;
+    left: 0;
+    display: grid;
+    place-items: center;
+    width: 400px;
+    height: 100%;
+    background: transparent;
+    backdrop-filter: blur(15px);
+    translate: -100% 0;
+    transition: translate 0.375s cubic-bezier(0.175, 0.885, 0.32, 1);
+  }
+
+  .menu nav {
+    opacity: 0;
+  }
+
+  @keyframes menu-in {
+    0% {
+      clip-path: ellipse(60% 60% at 0% 50%);
+    }
+    100% {
+      clip-path: ellipse(120% 120% at 0% 50%);
+    }
+  }
+
+
+  @keyframes appear {
+    0% {
+      opacity: 0;
+      translate: -30px 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .banner,
+  h1,
+  button {
+    transition: 0.6s;
+  }
+
+  .banner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 60%;
+    background: url("https://raw.githubusercontent.com/kriszmas/Javabeadando/main/bg.png");
+    background-size: 100%;
+    background-position: center;
+    transition: 0.5s;
+  }
+
+  .banner h1 {
+    font-size: 50px;
+    color: #f9f9f9;
+  }
+
+  .banner button {
+    padding: 12px 36px;
+    border-radius: 50px;
+    border: 2px solid rgba(0,0,0,0.5);
+    backdrop-filter: blur(15px);
+    background: transparent;
+    color: Black;
+    font-size: 18px;
+    font-family: inherit;
+  }
+
+  .container {
+    background: white;
+    padding: 60px 15%;
+    padding-bottom: 60px;
+  }
+
+  h2 {
+    font-size: 28px;
+  }
+  footer {
+    display: flex;
+    align-items: flex-start;
+    gap: 0px;
+    color: black;
+    bottom: 0;
+  }
+
+  @media (width < 920px) {
+    footer {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    footer.bottom {
+      gap: 16px;
+      flex-direction: column-reverse;
+    }
+  }
+
+  footer > img {
+    margin-top: 10px;
+  }
+
+  @media (width >= 920px) {
+    footer {
+      margin: 0 auto;
+      max-width: 500px;
+      padding: 0;
+    }
+  }
+
+  footer.top {
+    border-bottom: 2px solid black;
+    padding-bottom: 20px;
+  }
+
+  footer.bottom {
+    padding: 20px 0;
+    justify-content: space-between;
+  }
+
+  footer.top .links {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+
+  .links > div {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 30px;
+  }
+
+  footer h2 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 400;
+    color: black;
+  }
+
+  .legal {
+    font-size: 12px;
+  }
+
+  .legal > a {
+    margin: 0 4px;
+  }
+
+  .legal > span {
+    margin-right: 10px;
+  }
+
+  footer.bottom .links {
+    display: flex;
+    gap: 18px;
+  }
+
+  footer.bottom .links > a {
+    font-size: 24px;
+  }
+
+  @media (width < 630px) {
+    footer {
+      text-align: center;
+      align-items: center;
+    }
+
+    footer.top .links {
+      grid-template-columns: 1fr;
+    }
+
+    footer.bottom {
+      align-items: center;
+    }
+  }
+  .foot
+  {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: white;
+    color: black;
+  }
+  a {
+    cursor: pointer;
+  }
+</style>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <title>HeavenlyBitesSuccess</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+          href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+          rel="stylesheet"
+  />
+</head>
+<body >
+<div id="content">
+
+  <header id="banner" class="banner">
+    <a><img  class="logo" src="https://raw.githubusercontent.com/kriszmas/Javabeadando/main/logo.png"></a>
+  </header>
+</div>
+<section class="container">
+  <div th:insert="menu"></div>
+  <h1 th:utext="'A regisztrációja sikeres. <br/> Azonosítója: ' + ${id}" />
+</section>
+<section class="foot">
+  <footer class="top">
+    <img class="logo1" src="https://raw.githubusercontent.com/kriszmas/Javabeadando/main/logo1.png" />
+    <div class="links">
+      <div>
+        <h2>Platform</h2>
+        <a>Marketplace</a>
+      </div>
+      <div>
+        <a>Register</a>
+        <a>Pricing</a>
+      </div>
+    </div>
+  </footer>
+  <footer class="bottom">
+    <div class="legal">
+      <span> © 2023 All rights reserved </span>
+      <a> License </a>
+      <a> Terms </a>
+      <a> Privacy </a>
+    </div>
+    <div class="links">
+      <a href=https://github.com/kriszmas/Javabeadando class="fa-brands fa-github"></a>
+      <a class="fa-brands fa-linkedin"></a>
+      <a class="fa-brands fa-docker"></a>
+    </div>
+  </footer>
+</section>
+</div>
+
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/ScrollTrigger.min.js"></script>
+<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/ScrollSmoother.min.js"></script>-->
+
+<script>
+  const h1 = document.getElementById("h1"),
+          banner = document.getElementById("banner"),
+          button = document.getElementById("button1");
+
+  const onScroll = (event) => {
+    const scrollPosition = event.target.scrollingElement.scrollTop;
+    if (scrollPosition > 150) {
+      banner.style.backgroundSize = "160%";
+      h1.style.opacity = 0;
+      h1.style.translate = "0 -50px";
+      h1.style.scale = "0.9";
+      button.style.opacity = 0;
+      button.style.translate = "0 -50px";
+      button.style.scale = "0.8";
+    } else {
+      banner.style.backgroundSize = "100%";
+      h1.style.opacity = 1;
+      h1.style.translate = 0;
+      h1.style.scale = 1;
+      button.style.opacity = 1;
+      button.style.translate = 0;
+      button.style.scale = 1;
+    }
+  };
+
+  document.addEventListener("scroll", onScroll);
+</script>
+<script>
+  const hideScrollbar = () => {
+    const scrollBarCSS = `
+    ::-webkit-scrollbar {
+      width: 0.5em;
+    }
+
+    ::-webkit-scrollbar-track {
+      box-shadow: none;
+      background-color: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      border-radius: 1rem;
+      background-color: #000000;
+      opacity: 0.5;
+    }
+  `;
+
+    const style = document.createElement('style');
+    style.type = 'text/css';
+    style.appendChild(document.createTextNode(scrollBarCSS));
+    document.head.appendChild(style);
+  }
+
+  hideScrollbar();
+
+</script>
+<!--<script>
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+let smoother = ScrollSmoother.create({
+ content: "#content",
+ smooth: 1.5,
+ effects: true
+});
+</script>-->
+
+</body>
+
+</html>
